@@ -1,0 +1,5 @@
+# Commands used  to gather network performance stats
+
+dig www.msn.com | awk '/Query/ {print $4}' | ts '%Y-%m-%d %H:%M:%S,' >>/root/project/data/pi/dnslookuptime.txt
+curl -o /dev/null -s -w "%{time_total}\n"  https://www.msn.com | awk '{print strftime("%F %T, "), $0; fflush(); }' >>/root/project/data/pi/httploadtime.txt
+/usr/sbin/iw dev wlan0 link | awk '/signal/ {print substr($2,2,2)}' | ts '%Y-%m-%d %H:%M:%S,' >>/root/project/data/pi/wifidb.txt
